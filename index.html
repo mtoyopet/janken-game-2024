@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <p>相手の手</p>
+    <img width="100px" id="choki" class="enemyImages" src="./images/janken_choki.png" style="display: none;"></img>  
+    <img width="100px" id="gu" class="enemyImages" src="./images/janken_gu.png" style="display: none;"></img>
+    <img width="100px" id="pa" class="enemyImages" src="./images/janken_pa.png" style="display: none;"></img>
+    <div>
+      <p>自分の手</p>
+        <img onclick="startGame('choki')" width="100px" src="./images/janken_choki.png"></img>  
+        <img onclick="startGame('gu')" width="100px" src="./images/janken_gu.png"></img>
+        <img onclick="startGame('pa')" width="100px" src="./images/janken_pa.png"></img>
+    </div>
+    <p id="resultText"></p>
+  </div>
+
+  <script>
+    function startGame(myChoice) {
+      refreshPage()
+      const enemyChoices = ['gu', 'choki', 'pa']
+      let num = Math.floor(Math.random() * enemyChoices.length)
+      const enemyChoice = enemyChoices[num]
+
+      const targetImage = document.getElementById(enemyChoice)
+      targetImage.style.display = "block";
+      const text = resultText(enemyChoice, myChoice)
+      const textP = document.getElementById("resultText")
+      textP.innerHTML = text
+    }
+
+    function refreshPage() {
+      const enemyImages = document.getElementsByClassName("enemyImages")
+      for (let i = 0; i < enemyImages.length; i++) {
+        enemyImages[i].style.display = "none";
+      }
+    }
+
+    function resultText (enemyChoice, myChoice) {
+      if (enemyChoice == myChoice) {
+        return "あいこだよ"
+      } else if (enemyChoice == "gu" && myChoice == "pa") {
+        return "勝ったよ"
+      } else if (enemyChoice == "gu" && myChoice == "choki") {
+        return "負けたよ"
+      } else if (enemyChoice == "pa" && myChoice == "choki") {
+        return "勝ったよ"
+      } else if (enemyChoice == "pa" && myChoice == "gu") {
+        return "負けたよ"
+      } else if (enemyChoice == "choki" && myChoice == "gu") {
+        return "勝ったよ"
+      } else if (enemyChoice == "choki" && myChoice == "pa") {
+        return "負けたよ"
+      }
+    }
+  </script>
+</body>
+</html>
